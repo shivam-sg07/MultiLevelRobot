@@ -6,7 +6,7 @@ enum ControlModes {HUMAN, TRAINING, ONNX_INFERENCE}
 @export var control_mode: ControlModes = ControlModes.TRAINING
 @export_range(1, 10, 1, "or_greater") var action_repeat := 8
 @export_range(1, 10, 1, "or_greater") var speed_up = 1
-@export var onnx_model_path2 := "/Users/shivamgupta/Downloads/godot_rl_agents_examples-main-2/examples/MultiLevelRobot/train_nightly2.onnx"
+@export var onnx_model_path2 := "/Users/shivamgupta/Downloads/godot_rl_agents_examples-main-2/examples/MultiLevelRobot/train_nightly4.onnx"
 
 @onready var start_time = Time.get_ticks_msec()
 
@@ -112,7 +112,7 @@ func _physics_process(_delta):
 	elif onnx_model != null:
 		var obs : Array = _get_obs_from_agents()
 		
-		print("actions found", obs)
+		#print("actions found", obs)
 	
 		var actions = []
 		for o in obs:

@@ -6,21 +6,18 @@ class_name LevelManager
 
 @onready var levels = get_children()
 
-var coins_in_level: Array[Array]
-var active_coins_in_level_count: Array[int]
-var enemies: Array[Enemy]
+var coins_in_level: Array[Array] = []
+var active_coins_in_level_count: Array[int] = []
+var enemies: Array[Enemy] = []
 
-var level_start_points: Array
-var level_goals: Array
+var level_start_points: Array = []
+var level_goals: Array = []
 var fixed_goal_id_per_level: Dictionary = {}
-
-
 
 func _ready():
 	for node in find_children("Coin_*", "MeshInstance3D"):
 		node.set_script(Coin)
 		node.set_physics_process(true)
-
 
 	level_start_points.resize(levels.size())
 	level_goals.resize(levels.size())
@@ -57,6 +54,10 @@ func _ready():
 				if not coins_in_level[level_id]:
 					coins_in_level[level_id] = []
 				coins_in_level[level_id].append(coin_area)
+		else:
+			# No coins in this level
+			active_coins_in_level_count[level_id] = 0
+			coins_in_level[level_id] = []
 
 		var enemy_parent = levels[level_id].find_child("Enemies*") as Node3D
 		if enemy_parent:
@@ -77,6 +78,11 @@ func _ready():
 				enemy_area.connect("body_entered", enemy.on_wall_hit)
 				enemies.append(enemy)
 
+# ---- SAFELY GET NUMBER OF ACTIVE COINS IN LEVEL ----
+func get_num_active_coins(level: int) -> int:
+	if active_coins_in_level_count.size() > level and level >= 0:
+		return active_coins_in_level_count[level]
+	return 0
 
 func randomize_goal(level_id: int):
 	var active_goal_id: int
@@ -94,7 +100,6 @@ func randomize_goal(level_id: int):
 
 	return level_goals[level_id][active_goal_id].global_transform
 
-
 func get_closest_enemy(from_global_position: Vector3):
 	var closest_enemy: Enemy
 	var smallest_distance: float = INF
@@ -105,40 +110,40 @@ func get_closest_enemy(from_global_position: Vector3):
 			closest_enemy = enemy
 	return closest_enemy
 
-
 func get_closest_active_coin(from_global_position: Vector3, level: int):
 	var closest_coin: Area3D
 	var smallest_distance: float = INF
-	for coin in coins_in_level[level]:
-		if coin.visible == false:
-			continue
-		var distance: float = coin.global_position.distance_to(from_global_position)
-		if distance < smallest_distance:
-			smallest_distance = distance
-			closest_coin = coin
+	if coins_in_level.size() > level and coins_in_level[level]:
+		for coin in coins_in_level[level]:
+			if coin.visible == false:
+				continue
+			var distance: float = coin.global_position.distance_to(from_global_position)
+			if distance < smallest_distance:
+				smallest_distance = distance
+				closest_coin = coin
 	return closest_coin
 
-
 func deactivate_coin(coin: Area3D, current_level: int):
-	active_coins_in_level_count[current_level] -= 1
+	if active_coins_in_level_count.size() > current_level and active_coins_in_level_count[current_level] > 0:
+		active_coins_in_level_count[current_level] -= 1
 	coin.set_deferred("monitorable", false)
 	coin.visible = false
 	coin.process_mode = Node.PROCESS_MODE_DISABLED
 
-
 func check_all_coins_collected(current_level: int) -> bool:
-	return active_coins_in_level_count[current_level] == 0
-
+	if active_coins_in_level_count.size() > current_level:
+		return active_coins_in_level_count[current_level] == 0
+	return true
 
 func reset_coins(current_level: int):
-	var coins: Array = coins_in_level[current_level]
-	for coin in coins:
-		if not coin.visible:
-			coin.set_deferred("monitorable", true)
-			coin.visible = true
-			coin.process_mode = Node.PROCESS_MODE_INHERIT
-	active_coins_in_level_count[current_level] = coins.size()
-
+	if coins_in_level.size() > current_level:
+		var coins: Array = coins_in_level[current_level]
+		for coin in coins:
+			if not coin.visible:
+				coin.set_deferred("monitorable", true)
+				coin.visible = true
+				coin.process_mode = Node.PROCESS_MODE_INHERIT
+		active_coins_in_level_count[current_level] = coins.size()
 
 func get_spawn_position(level: int) -> Vector3:
 	var start_points: Array[Node] = level_start_points[min(level, levels.size() - 1)]

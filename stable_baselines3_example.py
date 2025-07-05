@@ -4,12 +4,14 @@ import pathlib
 from typing import Callable
 
 from stable_baselines3 import PPO
-from stable_baselines3.common.callbacks import CheckpointCallback
+from stable_baselines3.common.callbacks import CheckpointCallback, BaseCallback, EvalCallback, ProgressBarCallback, CallbackList
 from stable_baselines3.common.vec_env.vec_monitor import VecMonitor
 
 from godot_rl.core.utils import can_import
 from godot_rl.wrappers.onnx.stable_baselines_export import export_model_as_onnx
 from godot_rl.wrappers.stable_baselines_wrapper import StableBaselinesGodotEnv
+
+
 
 # To download the env source and binary:
 # 1.  gdrl.env_from_hub -r edbeeching/godot_rl_BallChase
@@ -162,7 +164,6 @@ env = StableBaselinesGodotEnv(
 )
 env = VecMonitor(env)
 
-
 # LR schedule code snippet from:
 # https://stable-baselines3.readthedocs.io/en/master/guide/examples.html#learning-rate-schedule
 def linear_schedule(initial_value: float) -> Callable[[float], float]:
@@ -184,6 +185,30 @@ def linear_schedule(initial_value: float) -> Callable[[float], float]:
         return progress_remaining * initial_value
 
     return func
+
+
+###callbacks
+
+ # Create the callback that will periodically evaluate and report the performance.
+eval_callback = EvalCallback(env, best_model_save_path="./logsEval/",
+                             log_path="./logsEval/", eval_freq=500,
+                             deterministic=True, render=False)
+
+from stable_baselines3.common.callbacks import EventCallback
+
+class PrintRewardCallback(EventCallback):
+    def __init__(self):
+        super().__init__()
+
+    def _on_event(self) -> bool:
+        # Called when an episode ends
+        for info in self.locals["infos"]:
+            if 'episode' in info:
+                reward = info['episode']['r']
+                length = info['episode']['l']
+                print(f"Episode finished: total reward={reward}, length={length}")
+        return True
+
 
 
 if args.resume_model_path is None:
@@ -215,7 +240,17 @@ if args.inference:
             obs = env.reset()
             episode_reward = 0
 else:
-    learn_arguments = dict(total_timesteps=args.timesteps, tb_log_name=args.experiment_name)
+    learn_arguments = dict(total_timesteps=args.timesteps, tb_log_name=args.experiment_name,progress_bar=True)
+    # if args.save_checkpoint_frequency:
+    #     print("Checkpoint saving enabled. Checkpoints will be saved to: " + abs_path_checkpoint)
+    #     checkpoint_callback = CheckpointCallback(
+    #         save_freq=(args.save_checkpoint_frequency // env.num_envs),
+    #         save_path=path_checkpoint,
+    #         name_prefix=args.experiment_name,
+    #     )
+    #     learn_arguments["callback"] = CallbackList([CheckpointCallback,eval_callback,PrintRewardCallback()])
+
+    callbacks = []
     if args.save_checkpoint_frequency:
         print("Checkpoint saving enabled. Checkpoints will be saved to: " + abs_path_checkpoint)
         checkpoint_callback = CheckpointCallback(
@@ -223,7 +258,10 @@ else:
             save_path=path_checkpoint,
             name_prefix=args.experiment_name,
         )
-        learn_arguments["callback"] = checkpoint_callback
+        callbacks.append(checkpoint_callback)
+
+    callbacks.extend([eval_callback, PrintRewardCallback()])
+    learn_arguments["callback"] = CallbackList(callbacks)
     try:
         model.learn(**learn_arguments)
     except (KeyboardInterrupt, ConnectionError, ConnectionResetError):
@@ -233,3 +271,6 @@ else:
         )
     finally:
         cleanup()
+
+
+#python3 stable_baselines3_example.py --save_model_path train_nightly4.zip --onnx_export_path train_nightly4.onnx --linear_lr_schedule True speedup 5 --experiment_name reward_improve
