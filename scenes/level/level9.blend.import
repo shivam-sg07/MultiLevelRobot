@@ -3,17 +3,17 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dxk55r7khovhj"
-path="res://.godot/imported/level9.blend-7df1859053a5b02a2fd6e1a6e9aeecdf.scn"
+uid="uid://buv0j1ha10j61"
+path="res://.godot/imported/level9.blend-e88c29bf94c29c3c7d8f5465d6375a21.scn"
 
 [deps]
 
-source_file="res://blender/level9.blend"
-dest_files=["res://.godot/imported/level9.blend-7df1859053a5b02a2fd6e1a6e9aeecdf.scn"]
+source_file="res://scenes/level/level9.blend"
+dest_files=["res://.godot/imported/level9.blend-e88c29bf94c29c3c7d8f5465d6375a21.scn"]
 
 [params]
 
-nodes/root_type="Node3D"
+nodes/root_type=""
 nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

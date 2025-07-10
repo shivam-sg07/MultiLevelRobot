@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://bxcp6s8r0wtrv"]
+[gd_scene load_steps=25 format=4 uid="uid://bxcp6s8r0wtrv"]
 
 [ext_resource type="Script" uid="uid://b7nr425cs3mst" path="res://scenes/level/level_manager.gd" id="1_oxntu"]
 [ext_resource type="PackedScene" uid="uid://80hnrx1b7044" path="res://scenes/level/level_goal.tscn" id="2_3sw7s"]
@@ -103,102 +103,154 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_e1xuq")
 
+[sub_resource type="ArrayMesh" id="ArrayMesh_f8jqa"]
+_surfaces = [{
+"aabb": AABB(-6.05, -5.73333, -6.34201, 12.1, 23.1, 12.684),
+"format": 34359742465,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABgAFAAcABgAHAAgABAAJAAUACgAJAAQABQALAAcACAAHAAsABQAJAAsACAALAAoACgALAAkA"),
+"name": "Teleport",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("nZnBwHp3t8DH8crAnZnBQHp3t8DH8cpAnZnBQHp3t8DH8crAnZnBwHp3t8DH8cpAnZnBQElElMDH8cpAnZnBQPDuikHH8crAnZnBQElElMDH8crAnZnBwPDuikHH8crAnZnBwElElMDH8crAnZnBQPDuikHH8cpAnZnBwElElMDH8cpAnZnBwPDuikHH8cpA")
+}, {
+"aabb": AABB(-6.05, -5.73333, -6.34201, 12.1, 1.1, 12.684),
+"format": 34896613377,
+"index_count": 30,
+"index_data": PackedByteArray("AAABAAIAAwAAAAIAAAAEAAEAAwACAAUABQABAAIABgADAAUABAAHAAEABAAGAAcABQAHAAEABgAFAAcA"),
+"name": "Base",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAP//AAAAAP//AAAAAAAA/////wAA//8AAP//AAAAAAAAAAAAAP///////wAA//8AAAAAAAD/////AAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_vhpmf"]
+resource_name = "level8_Cube_022"
+_surfaces = [{
+"aabb": AABB(-6.05, -5.73333, -6.34201, 12.1, 23.1, 12.684),
+"attribute_data": PackedByteArray("AAAAPgAAAD8AAMA+AACAPgAAwD4AAAA/AAAAPgAAgD4AACA/AACAPgAAID8AAAA/AAAgPwAAAD8AACA/AACAPgAAID8AAAA/AABgPwAAgD4AAGA/AAAAPwAAID8AAIA+AAAgPwAAQD8AACA/AACAPwAAID8AAIA/AAAgPwAAQD8AACA/AAAAAAAAID8AAIA+AAAgPwAAgD4AACA/AAAAAAAAID8AAAA/AAAgPwAAQD8AACA/AABAPwAAID8AAAA/"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_hdqyu"),
+"name": "Teleport",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("nZnBwHp3t8DH8crAnZnBQHp3t8DH8cpAnZnBQHp3t8DH8crAnZnBwHp3t8DH8cpAnZnBQElElMDH8cpAnZnBQPDuikHH8crAnZnBQElElMDH8crAnZnBQPDuikHH8cpAnZnBQPDuikHH8crAnZnBwPDuikHH8cpAnZnBwPDuikHH8crAnZnBQPDuikHH8cpAnZnBwElElMDH8crAnZnBwPDuikHH8cpAnZnBwElElMDH8cpAnZnBwPDuikHH8crAnZnBwElElMDH8cpAnZnBQPDuikHH8cpAnZnBQElElMDH8cpAnZnBwPDuikHH8cpAnZnBQElElMDH8crAnZnBwPDuikHH8crAnZnBwElElMDH8crAnZnBQPDuikHH8crA/38AAP///7//fwAA////v/9/AAD///+//38AAP///7////9//3///////3////+/////f/9///////9/////v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+/AAD/f/9///8AAP9/////vwAA/3//f///AAD/f////7//f/9/////P/9//3////8//3//f////z//f/9/////P/////////8//////////z//////////P/////////8/")
+}, {
+"aabb": AABB(-6.05, -5.73333, -6.34201, 12.1, 1.1, 12.684),
+"attribute_data": PackedByteArray("/1////+f/7//n////1//v/9f/7//n/9//5//v/9f/3//X/9//5//P/+f/3//X/8//1//P/+fAAD/n/8//18AAP+f/z//n/+//58AAP+f/38="),
+"format": 34896613399,
+"index_count": 30,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEA"),
+"material": SubResource("StandardMaterial3D_0kovs"),
+"name": "Base",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 20,
+"vertex_data": PackedByteArray("AAAAAP//VNUAAP//AABU1QAA/////1TVAAAAAAAAVNUAAAAAAAD///////8AAP//AAD//wAA/////wAAAAD/////AAAAAFTV////////VNX/////AABU1f//AAD//1TV//8AAP///78AAP//////v/////////+/AAAAAP///7//////////PwAA//8AAP8/AAD//////z//////AAD/P1TVVNVU1VTVVNVU1VTVVNX/v/+//7//v/+//7//v/+/qiqqKqoqqiqqKqoqqiqqKv////////////////////8AAP9/AAD/fwAA/38AAP9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_f8jqa")
+
 [node name="LevelManager" type="Node3D"]
 script = ExtResource("1_oxntu")
 level_goal_scene = ExtResource("2_3sw7s")
 
-[node name="level2" parent="." instance=ExtResource("3_45u06")]
+[node name="level1" parent="." instance=ExtResource("3_45u06")]
 
-[node name="level3" parent="." instance=ExtResource("4_gacmy")]
+[node name="level2" parent="." instance=ExtResource("4_gacmy")]
 
-[node name="ConveyorBelt" type="Area3D" parent="level3"]
+[node name="ConveyorBelt" type="Area3D" parent="level2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06282, -50.1)
 collision_layer = 4
 collision_mask = 0
 monitoring = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="level3/ConveyorBelt"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="level2/ConveyorBelt"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.380676, 0)
 shape = SubResource("BoxShape3D_pjtgt")
 
-[node name="ConveyorBelt2" type="Area3D" parent="level3"]
+[node name="ConveyorBelt2" type="Area3D" parent="level2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06282, -56.3)
 collision_layer = 4
 collision_mask = 0
 monitoring = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="level3/ConveyorBelt2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="level2/ConveyorBelt2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.380676, 0)
 shape = SubResource("BoxShape3D_pjtgt")
 
-[node name="ConveyorBelt3" type="Area3D" parent="level3"]
+[node name="ConveyorBelt3" type="Area3D" parent="level2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06282, -62.3)
 collision_layer = 4
 collision_mask = 0
 monitoring = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="level3/ConveyorBelt3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="level2/ConveyorBelt3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.380676, 0)
 shape = SubResource("BoxShape3D_pjtgt")
 
-[node name="level4" parent="." instance=ExtResource("5_ujbu2")]
+[node name="level3" parent="." instance=ExtResource("5_ujbu2")]
 
-[node name="level6" parent="." instance=ExtResource("7_kgnb3")]
+[node name="level4" parent="." instance=ExtResource("7_kgnb3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 40)
 
-[node name="level7" parent="." instance=ExtResource("8_hc0fw")]
+[node name="level5" parent="." instance=ExtResource("8_hc0fw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 40)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="level7"]
+[node name="StaticBody3D" type="StaticBody3D" parent="level5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -237)
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="level7/StaticBody3D"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="level5/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 2, 4.23811)
 shape = SubResource("ConvexPolygonShape3D_e57tg")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="level7/StaticBody3D"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="level5/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6, 2, 4.23811)
 shape = SubResource("ConvexPolygonShape3D_swuxu")
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="level7/StaticBody3D"]
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="level5/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 2, 4.23811)
 shape = SubResource("ConvexPolygonShape3D_a6rin")
 
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="level7/StaticBody3D"]
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="level5/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, 4.23811)
 shape = SubResource("ConvexPolygonShape3D_o2xrm")
 
-[node name="CollisionShape3D6" type="CollisionShape3D" parent="level7/StaticBody3D"]
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="level5/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, -2.0619)
 shape = SubResource("ConvexPolygonShape3D_7r61w")
 
-[node name="CollisionShape3D7" type="CollisionShape3D" parent="level7/StaticBody3D"]
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="level5/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 2, -2.0619)
 shape = SubResource("ConvexPolygonShape3D_0n41c")
 
-[node name="CollisionShape3D8" type="CollisionShape3D" parent="level7/StaticBody3D"]
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="level5/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6, 2, -2.08191)
 shape = SubResource("ConvexPolygonShape3D_fdcwt")
 
-[node name="CollisionShape3D9" type="CollisionShape3D" parent="level7/StaticBody3D"]
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="level5/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 2, -2.0619)
 shape = SubResource("ConvexPolygonShape3D_oqnta")
 
-[node name="level8" parent="." instance=ExtResource("9_mgkso")]
+[node name="level6" parent="." instance=ExtResource("9_mgkso")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 40)
 
-[node name="level10" parent="." instance=ExtResource("9_blv7l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -280)
+[node name="level9" parent="." instance=ExtResource("9_blv7l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -283.303)
 
-[node name="Level10" type="MeshInstance3D" parent="level10"]
-
-[node name="Start_009" type="Node3D" parent="level10/Level10"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.235229)
+[node name="Start_007" type="Node3D" parent="level9"]
+transform = Transform3D(0.745966, 0, 0, 0, 1, 0, 0, 0, 0.876344, 0, 0.00462818, 1.14694)
 metadata/extras = {
 "ant_landscape": {}
 }
 
-[node name="LevelStart_027" type="MeshInstance3D" parent="level10/Level10/Start_009"]
+[node name="LevelStart_022" type="MeshInstance3D" parent="level9/Start_007"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -7.7, 2, 15)
 mesh = SubResource("ArrayMesh_6416h")
 skeleton = NodePath("")
@@ -206,7 +258,7 @@ metadata/extras = {
 "ant_landscape": {}
 }
 
-[node name="LevelStart_028" type="MeshInstance3D" parent="level10/Level10/Start_009"]
+[node name="LevelStart_023" type="MeshInstance3D" parent="level9/Start_007"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 2, 15)
 mesh = SubResource("ArrayMesh_6416h")
 skeleton = NodePath("")
@@ -214,7 +266,7 @@ metadata/extras = {
 "ant_landscape": {}
 }
 
-[node name="LevelStart_029" type="MeshInstance3D" parent="level10/Level10/Start_009"]
+[node name="LevelStart_024" type="MeshInstance3D" parent="level9/Start_007"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 8, 2, 15)
 mesh = SubResource("ArrayMesh_6416h")
 skeleton = NodePath("")
@@ -222,5 +274,34 @@ metadata/extras = {
 "ant_landscape": {}
 }
 
-[editable path="level8"]
-[editable path="level10"]
+[node name="End_007" type="Node3D" parent="level9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+metadata/extras = {
+"ant_landscape": {}
+}
+
+[node name="LevelGoal_001" type="MeshInstance3D" parent="level9/End_007"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -6, 2, -9)
+mesh = SubResource("ArrayMesh_vhpmf")
+skeleton = NodePath("")
+metadata/extras = {
+"ant_landscape": {}
+}
+
+[node name="LevelGoal_002" type="MeshInstance3D" parent="level9/End_007"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 6, 2, -9)
+mesh = SubResource("ArrayMesh_vhpmf")
+skeleton = NodePath("")
+metadata/extras = {
+"ant_landscape": {}
+}
+
+[node name="LevelGoal_023" type="MeshInstance3D" parent="level9/End_007"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 2, -9)
+mesh = SubResource("ArrayMesh_vhpmf")
+skeleton = NodePath("")
+metadata/extras = {
+"ant_landscape": {}
+}
+
+[editable path="level6"]
