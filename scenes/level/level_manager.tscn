@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bxcp6s8r0wtrv"]
+[gd_scene load_steps=23 format=4 uid="uid://bxcp6s8r0wtrv"]
 
 [ext_resource type="Script" uid="uid://b7nr425cs3mst" path="res://scenes/level/level_manager.gd" id="1_oxntu"]
 [ext_resource type="PackedScene" uid="uid://80hnrx1b7044" path="res://scenes/level/level_goal.tscn" id="2_3sw7s"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cnc4e7ojkvq7i" path="res://blender/level4.blend" id="5_ujbu2"]
 [ext_resource type="PackedScene" uid="uid://b8mw8fc753u1f" path="res://blender/level6.blend" id="7_kgnb3"]
 [ext_resource type="PackedScene" uid="uid://e1c6uvs4n0ms" path="res://blender/level7.blend" id="8_hc0fw"]
+[ext_resource type="PackedScene" uid="uid://dxk55r7khovhj" path="res://blender/level9.blend" id="9_blv7l"]
 [ext_resource type="PackedScene" uid="uid://wy1toyuel6px" path="res://blender/level8.blend" id="9_mgkso"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pjtgt"]
@@ -35,6 +36,72 @@ points = PackedVector3Array(-1.3918, -1.3918, -1.3918, 1.3918, 1.3918, 1.3918, 1
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_oqnta"]
 points = PackedVector3Array(-1.3918, -1.3918, -1.3918, 1.3918, 1.3918, 1.3918, 1.3918, -1.3918, 1.3918, -1.3918, -1.3918, 1.3918, 1.3918, 1.3918, -1.3918, -1.3918, 1.3918, -1.3918, -1.3918, 1.3918, 1.3918, 1.3918, -1.3918, -1.3918)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hdqyu"]
+resource_name = "Teleport"
+transparency = 4
+albedo_color = Color(0, 0.756332, 0.0765106, 0.335329)
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0kovs"]
+resource_name = "Base"
+cull_mode = 2
+albedo_color = Color(0.251327, 0.251327, 0.251327, 1)
+roughness = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_e1xuq"]
+_surfaces = [{
+"aabb": AABB(-6.05, -5.73333, -6.34201, 12.1, 1e-05, 12.684),
+"format": 34896613377,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAAADAAEA"),
+"name": "Teleport",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("AAAAAAAAAAD//wAA//8AAP//AAAAAAAAAAAAAP//AAA=")
+}, {
+"aabb": AABB(-6.05, -5.73333, -6.34201, 12.1, 1.1, 12.684),
+"format": 34896613377,
+"index_count": 30,
+"index_data": PackedByteArray("AAABAAIAAwAAAAIAAAAEAAEAAwACAAUABQACAAEABgADAAUABAAHAAEABAAGAAcABQABAAcABgAFAAcA"),
+"name": "Base",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAP//AAAAAP//AAAAAAAA/////wAA//8AAP//AAAAAAAAAAAAAP///////wAA//8AAAAAAAD/////AAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_6416h"]
+resource_name = "level8_Cube_020"
+_surfaces = [{
+"aabb": AABB(-6.05, -5.73333, -6.34201, 12.1, 1e-05, 12.684),
+"attribute_data": PackedByteArray("/x//f/9f/z//X/9//x//Pw=="),
+"format": 34896613399,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAAADAAEA"),
+"material": SubResource("StandardMaterial3D_hdqyu"),
+"name": "Teleport",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("AAAAAAAA/7///wAA////v///AAAAAP+/AAAAAP///78AAP9/AAD/fwAA/38AAP9/")
+}, {
+"aabb": AABB(-6.05, -5.73333, -6.34201, 12.1, 1.1, 12.684),
+"attribute_data": PackedByteArray("/1////+f/7//n////1//v/9f/7//n/9//5//v/9f/3//X/9//5//P/+f/3//X/8//1//P/+fAAD/n/8//18AAP+f/z//n/+//5//f/+fAAA="),
+"format": 34896613399,
+"index_count": 30,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEA"),
+"material": SubResource("StandardMaterial3D_0kovs"),
+"name": "Base",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 20,
+"vertex_data": PackedByteArray("AAAAAP//VNUAAP//AABU1QAA/////1TVAAAAAAAAVNUAAAAAAAD///////8AAP//AAD//wAA/////wAAAAD/////AAAAAFTV////////VNX/////AABU1f//AAD//1TV//8AAP///78AAP//////v/////////+/AAAAAP///7//////////PwAA//8AAP8//////wAA/z8AAP//////P1TVVNVU1VTVVNVU1VTVVNX/v/+//7//v/+//7//v/+/qiqqKqoqqiqqKqoqqiqqKv////////////////////////9/////f////3////9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_e1xuq")
 
 [node name="LevelManager" type="Node3D"]
 script = ExtResource("1_oxntu")
@@ -120,4 +187,40 @@ shape = SubResource("ConvexPolygonShape3D_oqnta")
 [node name="level8" parent="." instance=ExtResource("9_mgkso")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 40)
 
+[node name="level10" parent="." instance=ExtResource("9_blv7l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -280)
+
+[node name="Level10" type="MeshInstance3D" parent="level10"]
+
+[node name="Start_009" type="Node3D" parent="level10/Level10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.235229)
+metadata/extras = {
+"ant_landscape": {}
+}
+
+[node name="LevelStart_027" type="MeshInstance3D" parent="level10/Level10/Start_009"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -7.7, 2, 15)
+mesh = SubResource("ArrayMesh_6416h")
+skeleton = NodePath("")
+metadata/extras = {
+"ant_landscape": {}
+}
+
+[node name="LevelStart_028" type="MeshInstance3D" parent="level10/Level10/Start_009"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 2, 15)
+mesh = SubResource("ArrayMesh_6416h")
+skeleton = NodePath("")
+metadata/extras = {
+"ant_landscape": {}
+}
+
+[node name="LevelStart_029" type="MeshInstance3D" parent="level10/Level10/Start_009"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 8, 2, 15)
+mesh = SubResource("ArrayMesh_6416h")
+skeleton = NodePath("")
+metadata/extras = {
+"ant_landscape": {}
+}
+
 [editable path="level8"]
+[editable path="level10"]
