@@ -84,14 +84,8 @@ func get_num_active_coins(level: int) -> int:
 		return active_coins_in_level_count[level]
 	return 0
 
-func randomize_goal(level_id: int):
-	var active_goal_id: int
-
-	if fixed_goal_id_per_level.has(level_id):
-		active_goal_id = fixed_goal_id_per_level[level_id]
-	else:
-		active_goal_id = randi_range(0, level_goals[level_id].size() - 1)
-		fixed_goal_id_per_level[level_id] = active_goal_id
+func randomize_goal(level_id: int) -> Transform3D:
+	var active_goal_id = randi_range(0, level_goals[level_id].size() - 1)
 
 	for goal_id in range(level_goals[level_id].size()):
 		var goal = level_goals[level_id][goal_id]
@@ -99,6 +93,7 @@ func randomize_goal(level_id: int):
 		goal.process_mode = Node.PROCESS_MODE_INHERIT if goal_id == active_goal_id else Node.PROCESS_MODE_DISABLED
 
 	return level_goals[level_id][active_goal_id].global_transform
+
 
 func get_closest_enemy(from_global_position: Vector3):
 	var closest_enemy: Enemy
