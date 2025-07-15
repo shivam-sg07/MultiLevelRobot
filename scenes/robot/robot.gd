@@ -14,6 +14,10 @@ class_name Robot
 @onready var robot_visual: Node3D = $"robot"
 @onready var ai_controller: RobotAIController = $AIController3D
 
+@export var time_label_path: NodePath
+var time_label: Label = null
+
+
 var current_level: int
 var next_level
 
@@ -26,9 +30,17 @@ var conveyor_belt_areas_entered: int
 var conveyor_belt_direction: int
 var conveyor_belt_speed: float = 15.0
 
+var level_start_time: int = 0
+var total_time_elapsed: int = 0
+
+var final_level_completed: bool = false  # <--- Added flag here
+
 
 func _ready():
 	reset()
+	if time_label_path != null:
+		time_label = get_node(time_label_path)
+
 
 
 func reset():
@@ -36,11 +48,30 @@ func reset():
 	global_position = level_manager.get_spawn_position(current_level)
 	current_goal_transform = level_manager.randomize_goal(current_level)
 	previous_distance_to_goal = global_position.distance_to(current_goal_transform.origin)
+	# Start the timer only at level 0
+	if current_level == 0 and next_level == null:
+		level_start_time = Time.get_ticks_msec()
+
+func update_time_label():
+	if time_label == null:
+		return
+
+	if final_level_completed:
+		# Only set the label once and skip future updates
+		if not time_label.text.begins_with("Total time:"):
+			time_label.text = "Total time: " + str(total_time_elapsed / 1000.0) + " s"
+	else:
+		var current_time = Time.get_ticks_msec()
+		var elapsed = current_time - level_start_time
+		time_label.text = "Time: " + str(elapsed / 1000.0) + " s"
+
+
 
 
 func _physics_process(delta):
 	reset_on_needs_reset()
 	handle_movement(delta)
+	update_time_label()
 
 
 func reset_on_needs_reset():
@@ -127,31 +158,37 @@ func update_wheels_and_visual_rotation(delta):
 
 func _on_area_3d_area_entered(area):
 	if area.get_collision_layer_value(1):
-		#print("Level goal reached")
+		# Check if all coins collected
 		if not level_manager.check_all_coins_collected(current_level):
 			return
+		
 		if current_level > max_level_reached:
 			max_level_reached = current_level
 			print("max level passed: ", max_level_reached)
-		next_level = (current_level + 1) % level_manager.levels.	size()
+
+		# Only print total time once after last level completed
+		if current_level == level_manager.levels.size() - 1 and not final_level_completed:
+			final_level_completed = true
+			total_time_elapsed = Time.get_ticks_msec() - level_start_time
+			print("Total time to complete all levels: ", total_time_elapsed / 1000.0, " seconds")
+			
+		
+
+		next_level = (current_level + 1) % level_manager.levels.size()
 		end_episode(1.0)
+	
 	if area.get_collision_layer_value(2):
-		#print("Coin picked up")
 		level_manager.deactivate_coin(area, current_level)
 		ai_controller.reward += 1
 	if area.get_collision_layer_value(3):
-		#print("On conveyor belt")
 		conveyor_belt_direction = 1 if randi_range(0, 1) == 0 else -1
 		conveyor_belt_areas_entered += 1
-		pass
 	if area.get_collision_layer_value(4):
-		#print("Enemy collision")
 		end_episode(-1.0)
 
 
 func _on_area_3d_body_entered(body):
 	if body.get_collision_layer_value(10):
-		#print("Robot fell down")
 		end_episode(-1.0)
 
 

@@ -15,6 +15,7 @@ var level_goals: Array = []
 var fixed_goal_id_per_level: Dictionary = {}
 
 func _ready():
+	seed(12345)
 	for node in find_children("Coin_*", "MeshInstance3D"):
 		node.set_script(Coin)
 		node.set_physics_process(true)
@@ -85,7 +86,9 @@ func get_num_active_coins(level: int) -> int:
 	return 0
 
 func randomize_goal(level_id: int) -> Transform3D:
-	var active_goal_id = randi_range(0, level_goals[level_id].size() - 1)
+	var active_goal_id = fixed_goal_id_per_level.get(level_id, randi_range(0, level_goals[level_id].size() - 1))
+	fixed_goal_id_per_level[level_id] = active_goal_id
+
 
 	for goal_id in range(level_goals[level_id].size()):
 		var goal = level_goals[level_id][goal_id]
