@@ -85,7 +85,7 @@ func get_reward() -> float:
 	# --- 1. Reward for collecting coins ---
 	var current_num_coins = level_manager.get_num_active_coins(robot.current_level)
 	if current_num_coins < last_num_coins:
-		reward_delta += 1.0  # Big reward for each coin collected (adjust if too large/small)
+		reward_delta += 0.75  # Big reward for each coin collected (adjust if too large/small)
 		last_num_coins = current_num_coins
 
 	# --- 2. Reward for getting closer to the goal, only if all coins collected ---
