@@ -31,6 +31,7 @@ collision_mask = 7
 shape = SubResource("WorldBoundaryShape3D_cs0bj")
 
 [node name="GameScene" parent="." instance=ExtResource("1_0cco7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0.000785468, 0, -0.000785468, 1, 0, 0, 0)
 
 [node name="GameScene2" parent="." instance=ExtResource("1_0cco7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 0)
