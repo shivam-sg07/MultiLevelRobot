@@ -223,16 +223,20 @@ if args.resume_model_path is None:
     model: SAC = SAC(
         "MlpPolicy",
         env,
-        ent_coef=0.0001,
+        ent_coef="auto_0.1",             # Let entropy coefficient adjust automatically, starting from 0.1
         verbose=2,
-        buffer_size=1000000,
-        learning_starts=10000,
-        batch_size=256,
-        train_freq=1,
-        gradient_steps=1,
+        buffer_size=1_000_000,           # Replay buffer size (kept same)
+        learning_starts=5_000,           # Start learning earlier
+        batch_size=1024,                 # Larger batch for more stable gradients
+        train_freq=1,                    # Train after every step
+        gradient_steps=1,                # One gradient step per train step
+        learning_rate=learning_rate,     # Your custom linear schedule or constant
+        gamma=0.99,                      # Discount factor (standard, usually best left as is)
+        tau=0.005,                       # Target smoothing coefficient (default; helps stability)
+        use_sde=True,                    # Use State Dependent Exploration (more efficient exploration)
         tensorboard_log=args.experiment_dir,
-        learning_rate=learning_rate,
-    )
+)
+
 else:
     path_zip = pathlib.Path(args.resume_model_path)
     print("Loading model: " + os.path.abspath(path_zip))
@@ -285,4 +289,6 @@ else:
 
 
 
-#python sac_stableBaselines3.py --timesteps 200000 --save_checkpoint_frequency 50000 --save_model_path sac_model.zip --onnx_export_path sac_model.onnx --experiment_dir sac_initial
+#python sac_stableBaselines3.py --timesteps 2000000 --save_checkpoint_frequency 50000 --save_model_path sac_model.zip --onnx_export_path sac_model.onnx --experiment_dir sac_initial --linear_lr_schedule
+
+#python sac_stableBaselines3.py --timesteps 2000 --save_checkpoint_frequency 50000 --save_model_path sac_model_test.zip --onnx_export_path sac_model_test.onnx --experiment_dir sac_test --linear_lr_schedule
