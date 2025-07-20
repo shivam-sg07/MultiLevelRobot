@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "SB3 Example: PPO 20Jul-2",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/stable_baselines3_example.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "args": [
+                "--save_model_path", "ppo-20Jul-2",
+                "--linear_lr_schedule", "True",
+                "speedup", "5",
+                "--experiment_name", "ppo-20-3Jul",
+                "--resume_model_path", "ppo-20Jul-2",
+                "--onnx_export_path", "ppo-20Jul-2-onnx",
+                "--save_checkpoint_frequency", "50000",
+                "--timesteps", "2000000"
+            ]
+        }
+    ]
+}

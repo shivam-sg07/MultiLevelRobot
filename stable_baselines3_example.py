@@ -196,9 +196,23 @@ eval_callback = EvalCallback(env, best_model_save_path="./logsEval/",
 
 from stable_baselines3.common.callbacks import EventCallback
 
+import csv
+import os
+
 class PrintRewardCallback(EventCallback):
-    def __init__(self):
+    def __init__(self, save_path="episode_rewards.csv", save_freq=100):
         super().__init__()
+        self.episode_rewards = []
+        self.episode_lengths = []
+        self.save_path = save_path
+        self.save_freq = save_freq
+        self.counter = 0
+
+        # Write CSV header if file doesn't exist
+        if not os.path.exists(self.save_path):
+            with open(self.save_path, 'w', newline='') as f:
+                writer = csv.writer(f)
+                writer.writerow(['episode', 'reward', 'length'])
 
     def _on_event(self) -> bool:
         # Called when an episode ends
@@ -207,7 +221,23 @@ class PrintRewardCallback(EventCallback):
                 reward = info['episode']['r']
                 length = info['episode']['l']
                 print(f"Episode finished: total reward={reward}, length={length}")
+                self.episode_rewards.append(reward)
+                self.episode_lengths.append(length)
+                self.counter += 1
+
+                # Save every 'save_freq' episodes
+                if self.counter % self.save_freq == 0:
+                    self.save_to_csv()
         return True
+
+    def save_to_csv(self):
+        # Append new rows to the CSV
+        with open(self.save_path, 'a', newline='') as f:
+            writer = csv.writer(f)
+            start_idx = max(0, self.counter - self.save_freq)
+            for idx in range(start_idx, self.counter):
+                writer.writerow([idx + 1, self.episode_rewards[idx], self.episode_lengths[idx]])
+        print(f"Saved {self.save_freq} episodes to {self.save_path}")
 
 
 
