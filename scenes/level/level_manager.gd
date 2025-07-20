@@ -74,7 +74,7 @@ func _ready():
 				enemy_area.set_collision_layer_value(1, false)
 				enemy_area.set_collision_layer_value(4, true)
 				enemy_area.set_collision_mask_value(1, true)
-				if level_id == 7:
+				if level_id == 6:
 					enemy.set_script(patrol_enemy_script)
 					enemy.set_physics_process(true)
 					enemy.add_child(enemy_area)

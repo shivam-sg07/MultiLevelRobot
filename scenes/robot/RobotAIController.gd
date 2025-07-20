@@ -72,41 +72,127 @@ func get_obs() -> Dictionary:
 func xz_distance(vector1: Vector3, vector2: Vector3):
 	var vec1_xz := Vector2(vector1.x, vector1.z)
 	var vec2_xz := Vector2(vector2.x, vector2.z)
-	return vec1_xz.distance_to(vec2_xz) 
+	return vec1_xz.distance_to(vec2_xz)
+
+func get_nearest_coin_position() -> Vector3:
+	var robot_pos = robot.global_position
+	var nearest_coin = null
+	var nearest_dist = INF
+	for coin in level_manager.coins_in_level[robot.current_level]:
+		if not coin.visible:
+			continue
+		var dist = xz_distance(robot_pos, coin.global_position)
+		if dist < nearest_dist:
+			nearest_dist = dist
+			nearest_coin = coin
+	if nearest_coin:
+		return nearest_coin.global_position
+	else:
+		return robot_pos
+
+#func get_reward() -> float:
+	#var current_goal_position = xz_distance(robot.global_position, robot.current_goal_transform.origin)
+	#var velocity: Vector3 = robot.get_real_velocity()
+	#var reward_delta = 0.0
+#
+	#if not closest_goal_position:
+		#closest_goal_position = current_goal_position
+#
+	## --- 1. Reward for collecting coins ---
+	#var current_num_coins = level_manager.get_num_active_coins(robot.current_level)
+	#if current_num_coins < last_num_coins:
+		#reward_delta += 1.0  # Big reward for each coin collected (adjust if too large/small)
+		#last_num_coins = current_num_coins
+#
+	## --- 2. Reward for getting closer to the goal, only if all coins collected ---
+	#if level_manager.check_all_coins_collected(robot.current_level):
+		#if current_goal_position < closest_goal_position:
+			#reward_delta += (closest_goal_position - current_goal_position) / 10.0
+			#closest_goal_position = current_goal_position
+#
+		## --- 3. Big reward for reaching the goal (only if all coins collected) ---
+		#if current_goal_position < goal_threshold:
+			#reward_delta += 2.0
+#
+	## --- 4. Penalty for standing still ---
+	#reward_delta -= (1.0 - clamp(velocity.length() / 2.0, 0.0, 1.0)) * 0.01
+#
+	## --- 5. Penalty for not making progress for N steps ---
+	#if n_steps % 50 == 0 and current_goal_position >= closest_goal_position:
+		#reward_delta -= 0.1
+	#
+	#return reward_delta
+
+	
+var last_distance_to_goal = null
+var last_distance_to_nearest_coin = null
 
 func get_reward() -> float:
-	var current_goal_position = xz_distance(robot.global_position, robot.current_goal_transform.origin)
-	var velocity: Vector3 = robot.get_real_velocity()
-	var reward_delta = 0.0
+	var reward = 0.0
+	var log_str = "\nREWARD DEBUG:\n"
+	
+	# --- 0. Set up last_num_coins for first step ---
+	if last_num_coins == null:
+		last_num_coins = level_manager.get_num_active_coins(robot.current_level)
+	
+	# --- 1. Coin Collection ---
+	var num_coins = level_manager.get_num_active_coins(robot.current_level)
+	if num_coins < last_num_coins:
+		reward += 2.0
+		log_str += "Coin collected! +2.0\n"
+	last_num_coins = num_coins
 
-	if not closest_goal_position:
-		closest_goal_position = current_goal_position
+	# --- 2. Progress toward nearest coin ---
+	if num_coins > 0:
+		var nearest_coin_pos = get_nearest_coin_position()
+		var dist_to_coin = xz_distance(robot.global_position, nearest_coin_pos)
+		if last_distance_to_nearest_coin != null:
+			var progress = last_distance_to_nearest_coin - dist_to_coin
+			if progress > 0:
+				reward += progress * 0.2
+				log_str += "Progress toward nearest coin: +" + str(progress * 0.2) + "\n"
+			else:
+				# This helps debug dithering/going backward
+				reward += progress * 0.2
+				log_str += "Moved away from nearest coin: " + str(progress * 0.2) + "\n"
+		last_distance_to_nearest_coin = dist_to_coin
+	else:
+		last_distance_to_nearest_coin = null
 
-	# --- 1. Reward for collecting coins ---
-	var current_num_coins = level_manager.get_num_active_coins(robot.current_level)
-	if current_num_coins < last_num_coins:
-		reward_delta += 1.0  # Big reward for each coin collected (adjust if too large/small)
-		last_num_coins = current_num_coins
+	# --- 3. Progress toward goal (only after all coins) ---
+	if num_coins == 0:
+		var goal_dist = xz_distance(robot.global_position, robot.current_goal_transform.origin)
+		if last_distance_to_goal != null:
+			var progress = last_distance_to_goal - goal_dist
+			if progress > 0:
+				reward += progress * 0.3
+				log_str += "Progress toward goal: +" + str(progress * 0.3) + "\n"
+			else:
+				reward += progress * 0.3
+				log_str += "Moved away from goal: " + str(progress * 0.3) + "\n"
+		last_distance_to_goal = goal_dist
 
-	# --- 2. Reward for getting closer to the goal, only if all coins collected ---
-	if level_manager.check_all_coins_collected(robot.current_level):
-		if current_goal_position < closest_goal_position:
-			reward_delta += (closest_goal_position - current_goal_position) / 10.0
-			closest_goal_position = current_goal_position
+		if goal_dist < goal_threshold:
+			reward += 4.0
+			log_str += "GOAL REACHED! +4.0\n"
+	else:
+		last_distance_to_goal = null
 
-		# --- 3. Big reward for reaching the goal (only if all coins collected) ---
-		if current_goal_position < goal_threshold:
-			reward_delta += 2.0
+	# --- 4. Standing Still Penalty ---
+	var vel = robot.get_real_velocity().length()
+	if vel < 0.05:
+		reward -= 0.01
+		log_str += "Penalized for standing still: -0.01\n"
 
-	# --- 4. Penalty for standing still ---
-	if velocity.length() < 0.05:
-		reward_delta -= 0.01
+	# --- 5. Small Step Penalty ---
+	reward -= 0.001
+	log_str += "Default step penalty: -0.001\n"
 
-	# --- 5. Penalty for not making progress for N steps ---
-	if n_steps % 50 == 0 and current_goal_position >= closest_goal_position:
-		reward_delta -= 0.1
-
-	return reward_delta
+	# --- Final reward logging ---
+	log_str += "TOTAL STEP REWARD: " + str(reward) + "\n"
+	print(log_str)
+	
+	return reward
 
 func get_action_space() -> Dictionary:
 	return {
