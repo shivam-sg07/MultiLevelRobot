@@ -5,10 +5,13 @@ class_name RobotAIController
 @onready var sensors: Array[Node] = $"../Sensors".get_children()
 @onready var level_manager = robot.level_manager
 
-var goal_threshold = 1.0  # Adjust based on your environment's scale
+var goal_threshold = 2.0  # Adjust based on your environment's scale
 
 var closest_goal_position
 var last_num_coins = 0
+
+var goal_reached = false
+
 
 func reset():
 	super.reset()
@@ -128,13 +131,13 @@ var last_distance_to_goal = null
 var last_distance_to_nearest_coin = null
 
 func get_reward() -> float:
-	var reward = 0.0
+	reward = 0.0
 	var log_str = "\nREWARD DEBUG:\n"
-	
+
 	# --- 0. Set up last_num_coins for first step ---
 	if last_num_coins == null:
 		last_num_coins = level_manager.get_num_active_coins(robot.current_level)
-	
+
 	# --- 1. Coin Collection ---
 	var num_coins = level_manager.get_num_active_coins(robot.current_level)
 	if num_coins < last_num_coins:
@@ -148,13 +151,8 @@ func get_reward() -> float:
 		var dist_to_coin = xz_distance(robot.global_position, nearest_coin_pos)
 		if last_distance_to_nearest_coin != null:
 			var progress = last_distance_to_nearest_coin - dist_to_coin
-			if progress > 0:
-				reward += progress * 0.2
-				log_str += "Progress toward nearest coin: +" + str(progress * 0.2) + "\n"
-			else:
-				# This helps debug dithering/going backward
-				reward += progress * 0.2
-				log_str += "Moved away from nearest coin: " + str(progress * 0.2) + "\n"
+			reward += progress * 0.2
+			log_str += ("Progress toward nearest coin: +" if progress > 0 else "Moved away from nearest coin: ") + str(progress * 0.2) + "\n"
 		last_distance_to_nearest_coin = dist_to_coin
 	else:
 		last_distance_to_nearest_coin = null
@@ -162,19 +160,18 @@ func get_reward() -> float:
 	# --- 3. Progress toward goal (only after all coins) ---
 	if num_coins == 0:
 		var goal_dist = xz_distance(robot.global_position, robot.current_goal_transform.origin)
+		print("DIST TO GOAL: ", goal_dist)
 		if last_distance_to_goal != null:
 			var progress = last_distance_to_goal - goal_dist
-			if progress > 0:
-				reward += progress * 0.3
-				log_str += "Progress toward goal: +" + str(progress * 0.3) + "\n"
-			else:
-				reward += progress * 0.3
-				log_str += "Moved away from goal: " + str(progress * 0.3) + "\n"
+			reward += progress * 0.3
+			log_str += ("Progress toward goal: +" if progress > 0 else "Moved away from goal: ") + str(progress * 0.3) + "\n"
 		last_distance_to_goal = goal_dist
 
-		if goal_dist < goal_threshold:
+		if goal_dist < goal_threshold and not goal_reached:
 			reward += 4.0
 			log_str += "GOAL REACHED! +4.0\n"
+			goal_reached = true
+			robot.end_episode(4.0)  # or your level reset logic
 	else:
 		last_distance_to_goal = null
 
@@ -182,17 +179,17 @@ func get_reward() -> float:
 	var vel = robot.get_real_velocity().length()
 	if vel < 0.05:
 		reward -= 0.01
-		log_str += "Penalized for standing still: -0.01\n"
 
-	# --- 5. Small Step Penalty ---
-	reward -= 0.001
-	log_str += "Default step penalty: -0.001\n"
+	# --- 5. Extra Idle Penalty near goal to prevent stalling ---
+	if vel < 0.05 and num_coins == 0 and not goal_reached:
+		reward -= 0.05
+		log_str += "Stalled near goal: -0.05\n"
 
 	# --- Final reward logging ---
-	log_str += "TOTAL STEP REWARD: " + str(reward) + "\n"
 	print(log_str)
-	
 	return reward
+
+
 
 func get_action_space() -> Dictionary:
 	return {
