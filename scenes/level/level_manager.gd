@@ -5,7 +5,7 @@ class_name LevelManager
 @export var level_goal_scene: PackedScene
 
 @onready var levels = get_children()
-
+var patrol_enemy_script = load("res://scenes/level/patrol_enemy.gd")
 var coins_in_level: Array[Array] = []
 var active_coins_in_level_count: Array[int] = []
 var enemies: Array[Enemy] = []
@@ -72,11 +72,22 @@ func _ready():
 				enemy_area.set_collision_layer_value(1, false)
 				enemy_area.set_collision_layer_value(4, true)
 				enemy_area.set_collision_mask_value(1, true)
-				enemy.set_script(Enemy)
-				enemy.set_physics_process(true)
-				enemy.add_child(enemy_area)
-				enemy_area.connect("body_entered", enemy.on_wall_hit)
+				if level_id == 7:
+					enemy.set_script(patrol_enemy_script)
+					enemy.set_physics_process(true)
+					enemy.add_child(enemy_area)
+
+				else:
+					enemy.set_script(Enemy)
+					enemy.set_physics_process(true)
+					enemy.add_child(enemy_area)
+					enemy_area.connect("body_entered", enemy.on_wall_hit)
 				enemies.append(enemy)
+				#enemy.set_script(Enemy)
+				#enemy.set_physics_process(true)
+				#enemy.add_child(enemy_area)
+				#enemy_area.connect("body_entered", enemy.on_wall_hit)
+				#enemies.append(enemy)
 
 # ---- SAFELY GET NUMBER OF ACTIVE COINS IN LEVEL ----
 func get_num_active_coins(level: int) -> int:
