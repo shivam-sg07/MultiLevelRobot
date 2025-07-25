@@ -79,4 +79,3 @@ func set_done_false():
 func zero_reward():
 	reward = 0.0
 	
-

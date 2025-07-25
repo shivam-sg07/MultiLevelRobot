@@ -1,15 +1,16 @@
-extends Node3D
+#extends Node3D
+extends Enemy
 class_name PatrolEnemy
 
-@export var speed: float = 5.0
+#@export var speed: float = 5.0
 @export var point_a: float # X position (e.g. -10)
 @export var point_b: float # X position (e.g. 10)
 @export var patrol_pause: float = 0.0
 
-var movement_direction := 1
+#var movement_direction := 1
 var _target_x: float = 0.0
 var _pause_timer := 0.0
-var wheels: Array[Node3D] = []
+#var wheels: Array[Node3D] = []
 
 func _ready():
 	wheels.append(find_child("Wheels*"))

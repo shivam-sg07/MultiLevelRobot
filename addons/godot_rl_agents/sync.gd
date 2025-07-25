@@ -42,8 +42,8 @@ func _initialize():
 	_obs_space = agents[0].get_obs_space()
 	_action_space = agents[0].get_action_space()
 	args = _get_args()
-	Engine.physics_ticks_per_second = _get_speedup() * 60 # Replace with function body.
-	Engine.time_scale = _get_speedup() * 1.0
+	Engine.physics_ticks_per_second = 5 * 60 # Replace with function body.
+	Engine.time_scale = 5 * 1.0
 	prints("physics ticks", Engine.physics_ticks_per_second, Engine.time_scale, _get_speedup(), speed_up)
 	
 	_set_heuristic("human")
