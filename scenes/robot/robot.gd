@@ -26,16 +26,27 @@ var conveyor_belt_areas_entered: int
 var conveyor_belt_direction: int
 var conveyor_belt_speed: float = 15.0
 
+var goal_reached_this_level: bool = false
+var level_start_time: int = 0
+var level_times: Dictionary = {}  # Optional: stores all level durations
+
+
+
 
 func _ready():
 	reset()
 
 
 func reset():
+	goal_reached_this_level = false
 	velocity = Vector3.ZERO
 	global_position = level_manager.get_spawn_position(current_level)
+	var goal_node = level_manager.randomize_goal(current_level)
 	current_goal_transform = level_manager.randomize_goal(current_level)
-	previous_distance_to_goal = global_position.distance_to(current_goal_transform.origin)
+	level_start_time = Time.get_ticks_msec()
+
+
+
 
 
 func _physics_process(delta):
@@ -126,27 +137,44 @@ func update_wheels_and_visual_rotation(delta):
 
 
 func _on_area_3d_area_entered(area):
+	# Goal area (Layer 1)
 	if area.get_collision_layer_value(1):
-		#print("Level goal reached")
+		if goal_reached_this_level:
+			return
 		if not level_manager.check_all_coins_collected(current_level):
 			return
+
+		goal_reached_this_level = true
+
+		print("Level %d completed!" % (current_level + 1))
+		var level_duration_ms := Time.get_ticks_msec() - level_start_time
+		var level_seconds := level_duration_ms / 1000.0
+		print("🕒 Time taken for Level %d: %.2f seconds" % [current_level + 1, level_seconds])
+
+# Optional: Store for later use
+		level_times[current_level] = level_seconds
+
 		if current_level > max_level_reached:
 			max_level_reached = current_level
-			print("max level passed: ", max_level_reached)
-		next_level = (current_level + 1) % level_manager.levels.	size()
+
+		next_level = (current_level + 1) % level_manager.levels.size()
 		end_episode(1.0)
+		return   
+
+	# Coin area (Layer 2)
 	if area.get_collision_layer_value(2):
-		#print("Coin picked up")
 		level_manager.deactivate_coin(area, current_level)
 		ai_controller.reward += 1
+
+	# Conveyor belt (Layer 3)
 	if area.get_collision_layer_value(3):
-		#print("On conveyor belt")
 		conveyor_belt_direction = 1 if randi_range(0, 1) == 0 else -1
 		conveyor_belt_areas_entered += 1
-		pass
+
+	# Enemy area (Layer 4)
 	if area.get_collision_layer_value(4):
-		#print("Enemy collision")
 		end_episode(-1.0)
+
 
 
 func _on_area_3d_body_entered(body):

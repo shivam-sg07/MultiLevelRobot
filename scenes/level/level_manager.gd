@@ -90,7 +90,10 @@ func randomize_goal(level_id: int):
 	if fixed_goal_id_per_level.has(level_id):
 		active_goal_id = fixed_goal_id_per_level[level_id]
 	else:
-		active_goal_id = randi_range(0, level_goals[level_id].size() - 1)
+		# Use fixed seed to make result deterministic per level
+		var rng := RandomNumberGenerator.new()
+		rng.seed = 1000 + level_id  # Any fixed base + level offset
+		active_goal_id = rng.randi_range(0, level_goals[level_id].size() - 1)
 		fixed_goal_id_per_level[level_id] = active_goal_id
 
 	for goal_id in range(level_goals[level_id].size()):
@@ -99,6 +102,7 @@ func randomize_goal(level_id: int):
 		goal.process_mode = Node.PROCESS_MODE_INHERIT if goal_id == active_goal_id else Node.PROCESS_MODE_DISABLED
 
 	return level_goals[level_id][active_goal_id].global_transform
+
 
 func get_closest_enemy(from_global_position: Vector3):
 	var closest_enemy: Enemy
@@ -147,7 +151,13 @@ func reset_coins(current_level: int):
 
 func get_spawn_position(level: int) -> Vector3:
 	var start_points: Array[Node] = level_start_points[min(level, levels.size() - 1)]
-	return start_points.pick_random().global_position
+
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 5000 + level  # Fixed base + level index
+	var spawn_index := rng.randi_range(0, start_points.size() - 1)
+
+	return start_points[spawn_index].global_position
+
 
 func clear_fixed_goal(level_id: int):
 	fixed_goal_id_per_level.erase(level_id)

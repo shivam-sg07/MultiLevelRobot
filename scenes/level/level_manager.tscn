@@ -40,84 +40,84 @@ points = PackedVector3Array(-1.3918, -1.3918, -1.3918, 1.3918, 1.3918, 1.3918, 1
 script = ExtResource("1_oxntu")
 level_goal_scene = ExtResource("2_3sw7s")
 
-[node name="level2" parent="." instance=ExtResource("3_45u06")]
+[node name="level1" parent="." instance=ExtResource("3_45u06")]
 
-[node name="level3" parent="." instance=ExtResource("4_gacmy")]
+[node name="level2" parent="." instance=ExtResource("4_gacmy")]
 
-[node name="ConveyorBelt" type="Area3D" parent="level3"]
+[node name="ConveyorBelt" type="Area3D" parent="level2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06282, -50.1)
 collision_layer = 4
 collision_mask = 0
 monitoring = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="level3/ConveyorBelt"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="level2/ConveyorBelt"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.380676, 0)
 shape = SubResource("BoxShape3D_pjtgt")
 
-[node name="ConveyorBelt2" type="Area3D" parent="level3"]
+[node name="ConveyorBelt2" type="Area3D" parent="level2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06282, -56.3)
 collision_layer = 4
 collision_mask = 0
 monitoring = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="level3/ConveyorBelt2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="level2/ConveyorBelt2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.380676, 0)
 shape = SubResource("BoxShape3D_pjtgt")
 
-[node name="ConveyorBelt3" type="Area3D" parent="level3"]
+[node name="ConveyorBelt3" type="Area3D" parent="level2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06282, -62.3)
 collision_layer = 4
 collision_mask = 0
 monitoring = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="level3/ConveyorBelt3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="level2/ConveyorBelt3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.380676, 0)
 shape = SubResource("BoxShape3D_pjtgt")
 
-[node name="level4" parent="." instance=ExtResource("5_ujbu2")]
+[node name="level3" parent="." instance=ExtResource("5_ujbu2")]
 
-[node name="level6" parent="." instance=ExtResource("7_kgnb3")]
+[node name="level4" parent="." instance=ExtResource("7_kgnb3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 40)
 
-[node name="level7" parent="." instance=ExtResource("8_hc0fw")]
+[node name="level5" parent="." instance=ExtResource("8_hc0fw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 40)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="level7"]
+[node name="StaticBody3D" type="StaticBody3D" parent="level5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -237)
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="level7/StaticBody3D"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="level5/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 2, 4.23811)
 shape = SubResource("ConvexPolygonShape3D_e57tg")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="level7/StaticBody3D"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="level5/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6, 2, 4.23811)
 shape = SubResource("ConvexPolygonShape3D_swuxu")
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="level7/StaticBody3D"]
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="level5/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 2, 4.23811)
 shape = SubResource("ConvexPolygonShape3D_a6rin")
 
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="level7/StaticBody3D"]
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="level5/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, 4.23811)
 shape = SubResource("ConvexPolygonShape3D_o2xrm")
 
-[node name="CollisionShape3D6" type="CollisionShape3D" parent="level7/StaticBody3D"]
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="level5/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, -2.0619)
 shape = SubResource("ConvexPolygonShape3D_7r61w")
 
-[node name="CollisionShape3D7" type="CollisionShape3D" parent="level7/StaticBody3D"]
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="level5/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 2, -2.0619)
 shape = SubResource("ConvexPolygonShape3D_0n41c")
 
-[node name="CollisionShape3D8" type="CollisionShape3D" parent="level7/StaticBody3D"]
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="level5/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6, 2, -2.08191)
 shape = SubResource("ConvexPolygonShape3D_fdcwt")
 
-[node name="CollisionShape3D9" type="CollisionShape3D" parent="level7/StaticBody3D"]
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="level5/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 2, -2.0619)
 shape = SubResource("ConvexPolygonShape3D_oqnta")
 
-[node name="level8" parent="." instance=ExtResource("9_mgkso")]
+[node name="level6" parent="." instance=ExtResource("9_mgkso")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 40)
 
-[editable path="level8"]
+[editable path="level6"]
