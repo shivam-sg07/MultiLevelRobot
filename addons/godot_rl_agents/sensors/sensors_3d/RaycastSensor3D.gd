@@ -109,13 +109,13 @@ func _spawn_nodes():
 			rays.append(ray)
 			ray.force_raycast_update()
 			
-#    if Engine.editor_hint:
-#        _create_debug_lines(points)
+	#_create_debug_lines(points)
 		
 func _create_debug_lines(points):
-	if not geo: 
-		geo = ImmediateMesh.new()
-		add_child(geo)
+	#if not geo:
+		#var geo := ImmediateGeometry.new()
+		#add_child(geo)
+
 		
 	geo.clear()
 	geo.begin(Mesh.PRIMITIVE_LINES)
