@@ -3,6 +3,7 @@ import os
 import pathlib
 from typing import Callable
 
+
 from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import CheckpointCallback, BaseCallback, EvalCallback, ProgressBarCallback, CallbackList
 from stable_baselines3.common.vec_env.vec_monitor import VecMonitor
@@ -11,6 +12,9 @@ from godot_rl.core.utils import can_import
 from godot_rl.wrappers.onnx.stable_baselines_export import export_model_as_onnx
 from godot_rl.wrappers.stable_baselines_wrapper import StableBaselinesGodotEnv
 
+
+#device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+#print(f"Using device###: {device}")
 
 
 # To download the env source and binary:
@@ -191,7 +195,7 @@ def linear_schedule(initial_value: float) -> Callable[[float], float]:
 
  # Create the callback that will periodically evaluate and report the performance.
 eval_callback = EvalCallback(env, best_model_save_path="./logsEval/",
-                             log_path="./logsEval/", eval_freq=500,
+                             log_path="./logsEval/", eval_freq=5000,
                              deterministic=True, render=False)
 
 from stable_baselines3.common.callbacks import EventCallback

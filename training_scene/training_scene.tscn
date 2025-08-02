@@ -32,42 +32,6 @@ shape = SubResource("WorldBoundaryShape3D_cs0bj")
 
 [node name="GameScene" parent="." instance=ExtResource("1_0cco7")]
 
-[node name="GameScene2" parent="." instance=ExtResource("1_0cco7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 0)
-visible = false
-
-[node name="GameScene3" parent="." instance=ExtResource("1_0cco7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200, 0, 0)
-visible = false
-
-[node name="GameScene4" parent="." instance=ExtResource("1_0cco7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -300, 0, 0)
-visible = false
-
-[node name="GameScene5" parent="." instance=ExtResource("1_0cco7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -400, 0, 0)
-visible = false
-
-[node name="GameScene6" parent="." instance=ExtResource("1_0cco7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -500, 0, 0)
-visible = false
-
-[node name="GameScene7" parent="." instance=ExtResource("1_0cco7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -600, 0, 0)
-visible = false
-
-[node name="GameScene8" parent="." instance=ExtResource("1_0cco7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -700, 0, 0)
-visible = false
-
-[node name="GameScene9" parent="." instance=ExtResource("1_0cco7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -800, 0, 0)
-visible = false
-
-[node name="GameScene10" parent="." instance=ExtResource("1_0cco7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -900, 0, 0)
-visible = false
-
 [node name="Sync" type="Node" parent="."]
 script = ExtResource("2_m5uj8")
 action_repeat = 10

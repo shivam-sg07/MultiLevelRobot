@@ -13,6 +13,7 @@ var enemies: Array[Enemy] = []
 var level_start_points: Array = []
 var level_goals: Array = []
 var fixed_goal_id_per_level: Dictionary = {}
+var initial_coin_count_per_level: Array[int] = []
 
 func _ready():
 	for node in find_children("Coin_*", "MeshInstance3D"):
@@ -24,8 +25,10 @@ func _ready():
 	active_coins_in_level_count.resize(levels.size())
 	active_coins_in_level_count.fill(0)
 	coins_in_level.resize(levels.size())
-
+	initial_coin_count_per_level.resize(levels.size())
+	
 	for level_id in range(0, levels.size()):
+		print("Level Started: ",level_id)
 		var start_node = levels[level_id].find_child("Start*")
 		level_start_points[level_id] = start_node.get_children()
 		var end_node = levels[level_id].find_child("End*")
@@ -37,6 +40,7 @@ func _ready():
 			level_goal_area.position = Vector3.ZERO
 		var coins = levels[level_id].find_child("Coins*")
 		if coins:
+			initial_coin_count_per_level[level_id] = coins.get_child_count()
 			active_coins_in_level_count[level_id] = coins.get_child_count()
 			for node in coins.get_children():
 				var coin = node as MeshInstance3D
@@ -56,6 +60,7 @@ func _ready():
 				coins_in_level[level_id].append(coin_area)
 		else:
 			# No coins in this level
+			initial_coin_count_per_level[level_id] = 0
 			active_coins_in_level_count[level_id] = 0
 			coins_in_level[level_id] = []
 

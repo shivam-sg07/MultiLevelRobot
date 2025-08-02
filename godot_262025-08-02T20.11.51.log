@@ -1,0 +1,182 @@
+Godot Engine v4.4.1.stable.mono.official.49a5bc7b6 - https://godotengine.org
+Vulkan 1.3.260 - Forward+ - Using Device #0: AMD - AMD Radeon(TM) Graphics
+
+WARNING: res://scenes/robot/robot.tscn:4 - ext_resource, invalid UID: uid://dau8w8quwnwpj - using text path instead: res://blender/robot.blend
+   at: load (scene/resources/resource_format_text.cpp:447)
+Level Started: 0
+Level Started: 1
+Level Started: 2
+Level Started: 3
+Level Started: 4
+Level Started: 5
+spawning nodes
+spawning nodes
+Level Started: 0
+Level Started: 1
+Level Started: 2
+Level Started: 3
+Level Started: 4
+Level Started: 5
+spawning nodes
+spawning nodes
+getting command line arguments
+uid://b60wttcr7f5ci
+{ "uid://b60wttcr7f5ci": "" }
+{ "uid://b60wttcr7f5ci": "" }
+{ "uid://b60wttcr7f5ci": "" }
+physics ticks 120 2.0 2 2
+OS: Windows Compute API: CPU
+{ "uid://b60wttcr7f5ci": "" }
+{ "uid://b60wttcr7f5ci": "" }
+Level 1 completed!
+🕒 Time taken for Level 1: 3.39 seconds
+Level 1 completed!
+🕒 Time taken for Level 1: 3.40 seconds
+___Reset____
+___Reset____
+Level 2 completed!
+🕒 Time taken for Level 2: 5.02 seconds
+___Reset____
+Level 2 completed!
+🕒 Time taken for Level 2: 5.06 seconds
+___Reset____
+Level 3 completed!
+🕒 Time taken for Level 3: 10.58 seconds
+___Reset____
+Level 3 completed!
+🕒 Time taken for Level 3: 11.05 seconds
+___Reset____
+Level 4 completed!
+🕒 Time taken for Level 4: 15.53 seconds
+___Reset____
+Level 4 completed!
+🕒 Time taken for Level 4: 16.04 seconds
+___Reset____
+Level 5 completed!
+🕒 Time taken for Level 5: 19.33 seconds
+___Reset____
+Level 5 completed!
+🕒 Time taken for Level 5: 19.83 seconds
+___Reset____
+Level 6 completed!
+🕒 Time taken for Level 6: 27.11 seconds
+___Reset____
+Level 6 completed!
+🕒 Time taken for Level 6: 27.12 seconds
+___Reset____
+Level 1 completed!
+🕒 Time taken for Level 1: 28.82 seconds
+___Reset____
+Level 2 completed!
+🕒 Time taken for Level 2: 30.39 seconds
+___Reset____
+Level 3 completed!
+🕒 Time taken for Level 3: 36.25 seconds
+___Reset____
+Level 4 completed!
+🕒 Time taken for Level 4: 41.19 seconds
+___Reset____
+Level 5 completed!
+🕒 Time taken for Level 5: 46.41 seconds
+___Reset____
+Level 1 completed!
+🕒 Time taken for Level 1: 55.67 seconds
+___Reset____
+Level 6 completed!
+🕒 Time taken for Level 6: 57.31 seconds
+___Reset____
+Level 2 completed!
+🕒 Time taken for Level 2: 57.45 seconds
+___Reset____
+___Reset____
+Level 1 completed!
+🕒 Time taken for Level 1: 58.95 seconds
+___Reset____
+Level 2 completed!
+🕒 Time taken for Level 2: 60.54 seconds
+___Reset____
+Level 3 completed!
+🕒 Time taken for Level 3: 63.56 seconds
+___Reset____
+Level 3 completed!
+🕒 Time taken for Level 3: 66.53 seconds
+___Reset____
+Level 4 completed!
+🕒 Time taken for Level 4: 68.47 seconds
+___Reset____
+Level 4 completed!
+🕒 Time taken for Level 4: 71.53 seconds
+___Reset____
+Level 5 completed!
+🕒 Time taken for Level 5: 71.84 seconds
+___Reset____
+Level 5 completed!
+🕒 Time taken for Level 5: 76.77 seconds
+___Reset____
+___Reset____
+Level 6 completed!
+🕒 Time taken for Level 6: 87.63 seconds
+___Reset____
+Level 6 completed!
+🕒 Time taken for Level 6: 87.77 seconds
+___Reset____
+Level 1 completed!
+🕒 Time taken for Level 1: 89.29 seconds
+___Reset____
+Level 1 completed!
+🕒 Time taken for Level 1: 116.50 seconds
+___Reset____
+Level 2 completed!
+🕒 Time taken for Level 2: 118.01 seconds
+___Reset____
+Level 3 completed!
+🕒 Time taken for Level 3: 124.03 seconds
+___Reset____
+Level 4 completed!
+🕒 Time taken for Level 4: 129.03 seconds
+___Reset____
+Level 5 completed!
+🕒 Time taken for Level 5: 137.74 seconds
+___Reset____
+Level 6 completed!
+🕒 Time taken for Level 6: 145.47 seconds
+___Reset____
+___Reset____
+Level 2 completed!
+🕒 Time taken for Level 2: 149.29 seconds
+___Reset____
+Level 3 completed!
+🕒 Time taken for Level 3: 155.74 seconds
+___Reset____
+Level 4 completed!
+🕒 Time taken for Level 4: 161.57 seconds
+___Reset____
+Level 5 completed!
+🕒 Time taken for Level 5: 165.29 seconds
+___Reset____
+Level 6 completed!
+🕒 Time taken for Level 6: 173.00 seconds
+___Reset____
+Level 1 completed!
+🕒 Time taken for Level 1: 174.92 seconds
+___Reset____
+Level 2 completed!
+🕒 Time taken for Level 2: 176.69 seconds
+___Reset____
+___Reset____
+Level 3 completed!
+🕒 Time taken for Level 3: 182.87 seconds
+___Reset____
+Level 4 completed!
+🕒 Time taken for Level 4: 187.79 seconds
+___Reset____
+Level 5 completed!
+🕒 Time taken for Level 5: 192.38 seconds
+___Reset____
+___Reset____
+Level 1 completed!
+🕒 Time taken for Level 1: 202.47 seconds
+___Reset____
+Level 6 completed!
+🕒 Time taken for Level 6: 209.28 seconds
+___Reset____

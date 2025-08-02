@@ -11,9 +11,18 @@ config_version=5
 [application]
 
 config/name="MultiLevelRobotEnv"
-run/main_scene="uid://b60wttcr7f5ci"
+run/main_scene="uid://mwsee7v5ksaq"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[debug]
+
+file_logging/enable_file_logging=true
+file_logging/log_path="D:/Tech_Uni_Dresden_docs/Sem_2/Team_Project/26_july/MultiLevelRobot/godot_26.log"
+
+[debug_draw_3d]
+
+settings/addon_root_folder="res://addons/debug_draw_3d"
 
 [dotnet]
 

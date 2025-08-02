@@ -1,3 +1,4 @@
+@tool
 extends Node
 
 # --fixed-fps 2000 --disable-render-loop
@@ -6,7 +7,7 @@ enum ControlModes {HUMAN, TRAINING, ONNX_INFERENCE}
 @export var control_mode: ControlModes = ControlModes.TRAINING
 @export_range(1, 10, 1, "or_greater") var action_repeat := 8
 @export_range(1, 10, 1, "or_greater") var speed_up = 1
-@export var onnx_model_path2 := "/Users/shivamgupta/Downloads/godot_rl_agents_examples-main-2/examples/MultiLevelRobot/train_nightly4.onnx"
+@export var onnx_model_path2 := "D:/Tech_Uni_Dresden_docs/Sem_2/Team_Project/26_july/MultiLevelRobot/train_nightly4.onnx"
 
 @onready var start_time = Time.get_ticks_msec()
 
@@ -35,7 +36,7 @@ func _ready():
 	get_tree().set_pause(true) 
 	_initialize()
 	await get_tree().create_timer(1.0).timeout
-	get_tree().set_pause(false) 
+	get_tree().set_pause(false)
 	
 func _initialize():
 	_get_agents()
