@@ -75,36 +75,46 @@ func xz_distance(vector1: Vector3, vector2: Vector3):
 	return vec1_xz.distance_to(vec2_xz) 
 
 func get_reward() -> float:
-	var current_goal_position = xz_distance(robot.global_position, robot.current_goal_transform.origin)
-	var velocity: Vector3 = robot.get_real_velocity()
 	var reward_delta = 0.0
 
-	if not closest_goal_position:
+	var velocity: Vector3 = robot.get_real_velocity()
+	var speed = velocity.length()
+
+	var current_goal_position = xz_distance(robot.global_position, robot.current_goal_transform.origin)
+
+	if closest_goal_position == null:
 		closest_goal_position = current_goal_position
 
-	# --- 1. Reward for collecting coins ---
+	# --- 1. Dense reward for approaching goal ---
+	var distance_progress = closest_goal_position - current_goal_position
+	reward_delta += clamp(distance_progress * 0.05, -0.1, 0.1)
+	closest_goal_position = min(closest_goal_position, current_goal_position)
+
+	# --- 2. Store how many coins have been collected ---
 	var current_num_coins = level_manager.get_num_active_coins(robot.current_level)
 	if current_num_coins < last_num_coins:
-		reward_delta += 1.0  # Big reward for each coin collected (adjust if too large/small)
-		last_num_coins = current_num_coins
+		last_num_coins = current_num_coins  # Just track it, no immediate reward
 
-	# --- 2. Reward for getting closer to the goal, only if all coins collected ---
-	if level_manager.check_all_coins_collected(robot.current_level):
-		if current_goal_position < closest_goal_position:
-			reward_delta += (closest_goal_position - current_goal_position) / 10.0
-			closest_goal_position = current_goal_position
+	# --- 3. Reward only when goal is reached AND all coins collected ---
+	var all_coins_collected = level_manager.check_all_coins_collected(robot.current_level)
+	if all_coins_collected and current_goal_position < goal_threshold:
+		reward_delta += 5.0  # Goal completion reward
+		var total_coins = level_manager.get_total_coins(robot.current_level)
+		var collected_coins = total_coins - current_num_coins
+		reward_delta += float(collected_coins) * 2.0  # Delayed reward for coins
+		needs_reset = true
+		done = true
 
-		# --- 3. Big reward for reaching the goal (only if all coins collected) ---
-		if current_goal_position < goal_threshold:
-			reward_delta += 2.0
+	# --- 4. Reward for staying active ---
+	reward_delta += clamp(speed * 0.02, 0.0, 0.05)
 
-	# --- 4. Penalty for standing still ---
-	if velocity.length() < 0.05:
+	# --- 5. Small penalty if stuck ---
+	if speed < 0.05:
 		reward_delta -= 0.01
 
-	# --- 5. Penalty for not making progress for N steps ---
+	# --- 6. Time penalty for lack of progress ---
 	if n_steps % 50 == 0 and current_goal_position >= closest_goal_position:
-		reward_delta -= 0.1
+		reward_delta -= 0.05
 
 	return reward_delta
 
