@@ -43,7 +43,8 @@ func reset():
 	global_position = level_manager.get_spawn_position(current_level)
 	var goal_node = level_manager.randomize_goal(current_level)
 	current_goal_transform = level_manager.randomize_goal(current_level)
-	level_start_time = Time.get_ticks_msec()
+	if ai_controller.needs_reset == false:
+		level_start_time = Time.get_ticks_msec()
 
 
 
