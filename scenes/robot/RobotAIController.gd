@@ -14,13 +14,14 @@ var closest_goal_distance := INF
 var _last_goal_distance := -1.00
 var goal_reached = false
 
+
 func _process(delta):
-	
+		
 	# goal position
-	var goal_pos = robot.current_goal_transform.origin
-	DebugDraw3D.draw_sphere(goal_pos, 0.5, Color.GREEN)
-	DebugDraw3D.draw_line(robot.global_position, goal_pos, Color.GREEN)
-	DebugDraw2D.set_text("GoalDistance", "Goal Distance: %.2f" % robot.global_position.distance_to(goal_pos))
+	var current_goal_position1: Vector3 = robot.current_goal_transform.origin
+	DebugDraw3D.draw_sphere(current_goal_position1, 0.5, Color.GREEN)
+	DebugDraw3D.draw_line(robot.global_position, current_goal_position1, Color.GREEN)
+	DebugDraw2D.set_text("GoalDistance", "Goal Distance: %.2f" % robot.global_position.distance_to(current_goal_position1))
 	
 	# path to nearest coin
 	var closest_coin = level_manager.get_closest_active_coin(robot.global_position, robot.current_level)
@@ -165,7 +166,7 @@ var last_distance_to_goal = null
 var last_distance_to_nearest_coin = null
 
 func get_reward() -> float:
-	var current_goal_position = xz_distance(robot.global_position, robot.current_goal_transform.origin)
+	#var current_goal_position = xz_distance(robot.global_position, robot.current_goal_transform.origin)
 	var velocity: Vector3 = robot.get_real_velocity()
 	var reward = 0.0
 	

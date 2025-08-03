@@ -1,7 +1,9 @@
+@tool
 extends CharacterBody3D
 class_name Robot
 
-@export var level_manager: LevelManager
+@onready var level_manager: LevelManager
+#@export var level_manager: LevelManager
 @export var wheels: Array[Node3D]
 
 @export var acceleration: float = 25.0
@@ -14,12 +16,12 @@ class_name Robot
 @onready var robot_visual: Node3D = $"robot"
 @onready var ai_controller: RobotAIController = $AIController3D
 
-var current_level: int
+@export var current_level: int
 var next_level
 
 var requested_movement: Vector3
 var max_level_reached: int = 0
-var current_goal_transform: Transform3D
+@export var current_goal_transform: Transform3D
 var previous_distance_to_goal: float
 
 var conveyor_belt_areas_entered: int
@@ -37,18 +39,16 @@ func _ready():
 	reset()
 
 
-func reset():
+func reset(is_new_level: bool = true):
 	goal_reached_this_level = false
 	velocity = Vector3.ZERO
 	global_position = level_manager.get_spawn_position(current_level)
 	var goal_node = level_manager.randomize_goal(current_level)
 	current_goal_transform = level_manager.randomize_goal(current_level)
-	if ai_controller.needs_reset == false:
+	if is_new_level:
 		level_start_time = Time.get_ticks_msec()
-
-
-
-
+#	if ai_controller.needs_reset == false:
+#		level_start_time = Time.get_ticks_msec()
 
 func _physics_process(delta):
 	reset_on_needs_reset()
@@ -62,7 +62,11 @@ func reset_on_needs_reset():
 		if next_level != null:
 			current_level = next_level
 			next_level = null
-
+			reset(true)  # This is a new level - reset timer
+		else:
+			# Just fell - don't reset timer
+			reset(false)
+			
 		level_manager.reset_coins(current_level)
 		reset()
 		ai_controller.reset()
@@ -147,9 +151,10 @@ func _on_area_3d_area_entered(area):
 
 		goal_reached_this_level = true
 
-		print("Level %d completed!" % (current_level + 1))
+		#print("level_start_time %.2f" %(level_start_time/1000))
 		var level_duration_ms := Time.get_ticks_msec() - level_start_time
 		var level_seconds := level_duration_ms / 1000.0
+		print("Level %d completed!" % (current_level + 1))
 		print("🕒 Time taken for Level %d: %.2f seconds" % [current_level + 1, level_seconds])
 
 # Optional: Store for later use

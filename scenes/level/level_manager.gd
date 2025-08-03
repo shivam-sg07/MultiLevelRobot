@@ -1,9 +1,11 @@
+@tool
 extends Node3D
 class_name LevelManager
 
 @export var robot: Robot
 @export var level_goal_scene: PackedScene
 
+@onready var level_manager: LevelManager
 @onready var levels = get_children()
 
 var coins_in_level: Array[Array] = []
