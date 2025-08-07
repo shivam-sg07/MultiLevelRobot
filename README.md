@@ -99,6 +99,17 @@ Running Inference with Pretrained ONNX Model
     
 3.  Click on **Run Current Scene** or press F6.
     
+Real-Time Debug
+--------------------------------------------
+
+1. Used DebugDraw3D library.
+
+2. Wall and floor sensors are rendered as colored lines (white = no collision, red = collision), making it easy to verify detection ranges and angles.
+
+3. Spheres and arrows highlight target positions (green = goal, gold = coin, red = enemy) and movement directions.
+
+4. Displays real-time metrics like distance to goal, coin and speed.
+
 
 Training in Godot
 -----------------
