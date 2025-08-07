@@ -84,7 +84,7 @@ Training the Agent
 
 To train using Proximal Policy Optimization (PPO), use the stable\_baselines3\_example.py file:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   python3 stable_baselines3_example.py --save_model_path ppo-final --linear_lr_schedule True --speedup 5 --experiment_name ppo-final --onnx_export_path ppo-final-onnx --save_checkpoint_frequency 50000   `
+`   python3 stable_baselines3_example.py --save_model_path ppo-final --linear_lr_schedule True --speedup 5 --experiment_name ppo-final --onnx_export_path ppo-final-onnx --save_checkpoint_frequency 50000   `
 
 ### SAC Training
 
